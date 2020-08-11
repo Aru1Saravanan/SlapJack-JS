@@ -4,13 +4,15 @@ let opponentsDeck = [];
 let discardedPile = [];
 let playersDeck = [];
 let suitSymbol;
+let reaction;
 
-const opponentDeck = document.getElementById("opponent-deck");
 const discardPile = document.getElementById("discarded-pile");
 const playerDeck = document.getElementById("player-deck");
 const opponentFace = document.getElementById("player");
 const cardNumbers = document.getElementsByClassName("number");
 const artWork = document.getElementsByClassName("artwork")[0];
+const textWrapper = document.getElementById("win-lose-status");
+const playAgain = document.getElementById("play-again-wrapper");
 
 //creating cards
 for (let i = 0; i < 4; i++) {
@@ -31,19 +33,19 @@ for (let i = 0; i < 4; i++) {
   for (let j = 0; j < 13; j++) {
     switch (j) {
       case 0:
-        discardedPile.push(suit + "A");
+        discardedPile.push("A" + suit);
         break;
       case 10:
-        discardedPile.push(suit + "J");
+        discardedPile.push("J" + suit);
         break;
       case 11:
-        discardedPile.push(suit + "Q");
+        discardedPile.push("Q" + suit);
         break;
       case 12:
-        discardedPile.push(suit + "K");
+        discardedPile.push("K" + suit);
         break;
       default:
-        discardedPile.push(suit + j);
+        discardedPile.push(j + suit);
     }
   }
 }
@@ -100,19 +102,26 @@ function suitSymbolCreator(currentValue, suitSymbol) {
 }
 
 //publishing the card
-function playCard() {
-  discardedPile.push(playersDeck[0]);
-  playersDeck.splice(0, 1);
-
+function playCard(event) {
+  const target = event.target.id;
+  discardPile.style.visibility = "visible";
+  opponentFace.innerText = "🙂";
+  if (target === "player-deck") {
+    discardedPile.push(playersDeck[0]);
+    playersDeck.splice(0, 1);
+  } else if (target === "opponent-deck") {
+    discardedPile.push(opponentsDeck[0]);
+    opponentsDeck.splice(0, 1);
+  }
   //separating suit and value
   const currentCard = discardedPile[discardedPile.length - 1];
-  let currentValue = currentCard.substring(1, 2);
+  let currentValue = currentCard.substring(0, 1);
 
   //value logic
   if (Number(currentValue)) {
     currentValue = Number(currentValue) + 1;
   }
-  const suit = currentCard.substring(0, 1);
+  const suit = currentCard.substring(1, 2);
 
   //suit and number logic
   for (let k = 0; k < 2; k++) {
@@ -134,12 +143,14 @@ function playCard() {
         break;
       case "S":
         {
+          discardPile.classList.remove("red");
           cardNumbers[k].innerText += "\n♠";
           suitSymbol = "♠";
         }
         break;
       case "C":
         {
+          discardPile.classList.remove("red");
           cardNumbers[k].innerText += "\n♣";
           suitSymbol = "♣";
         }
@@ -180,6 +191,92 @@ function playCard() {
     }
     suitSymbolCreator(currentValue, suitSymbol);
   }
+  console.log(playersDeck);
+  getCurrentCard();
+  opponentAI(target);
 }
 
-playCard();
+//Opponent's AI
+function opponentAI(lastPlayer) {
+  const reactionTime = Math.floor(Math.random() * (1600 - 900) + 900);
+  window.clearTimeout(reaction);
+  reaction = window.setTimeout(() => {
+    const discardedCardsLength = discardedPile.length;
+    if (
+      discardedCardsLength > 0 &&
+      discardedPile[discardedCardsLength - 1].includes("J")
+    ) {
+      slap();
+    } else if (lastPlayer === "player-deck") {
+      let event = {};
+      event.target = {};
+      event.target.id = "opponent-deck";
+      playCard(event);
+    }
+  }, reactionTime);
+}
+
+//slap event
+function slap(event) {
+  const discardCardsLength = discardedPile.length;
+
+  let currentPlayer;
+  if (event !== undefined) {
+    currentPlayer = "player";
+  } else {
+    currentPlayer = "AI";
+    if (discardCardsLength === 0) {
+      playerMood(`sad`);
+      return;
+    }
+  }
+
+  if (
+    discardCardsLength > 0 &&
+    discardedPile[discardCardsLength - 1].includes("J")
+  ) {
+    if (currentPlayer === "player") {
+      playerMood("sad");
+      playersDeck = playersDeck.concat(shuffle(discardedPile));
+      window.clearTimeout(reaction);
+      discardPile.style.visibility = "hidden";
+    } else {
+      playerMood("happy");
+      opponentsDeck = opponentsDeck.concat(shuffle(discardedPile));
+      opponentAI("player-deck");
+      discardPile.style.visibility = "hidden";
+    }
+    discardedPile = [];
+    getCurrentCard();
+  }
+}
+
+//player's mood change
+function playerMood(mood) {
+  if (mood === "happy") {
+    opponentFace.innerText = "😁 Opponent Won 🎉🎊✨";
+  } else if (mood === "sad") {
+    opponentFace.innerText = "😑 Opponent Lost 😥😪";
+  }
+}
+
+//winner announcing function
+function getCurrentCard() {
+  if (playersDeck.length === 0) {
+    playersDeck.removeEventListener("click", playCard, false);
+    playersDeck.style.visibility = "hidden";
+    playAgain.style.display = "flex";
+    textWrapper.innerText = "You Win the Game😁🎉";
+    playerMood("sad");
+    window.clearTimeout(reaction);
+  } else if (opponentsDeck.length === 0) {
+    opponentsDeck.style.visibility = "hidden";
+    playAgain.style.display = "flex";
+    textWrapper.innerText = "You Lose the Game😔💔";
+    playerMood("happy");
+    window.clearTimeout(reaction);
+  }
+}
+
+playerDeck.addEventListener("click", playCard, false);
+discardPile.addEventListener("click", slap, false);
