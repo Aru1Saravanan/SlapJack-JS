@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>SlapJack</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <header>SlapJack 🃏</header>
-    <main></main>
-    <footer>Coded by Dracode</footer>
+  </head>
+  <body>
+    <header><h1 class="title">SlapJack 🃏</h1></header>
+    <main>
+      <div id="player">🙇🏻‍♂</div>
+      <div id="opponent-deck">
+        <div class="cards card-flipped"></div>
+      </div>
+      <div id="discarded-pile">
+        <div class="cards card-front">
+          <div class="number"></div>
+          <div class="artwork"></div>
+          <div class="number inverse"></div>
+        </div>
+      </div>
+      <div id="player-deck">
+        <div class="cards card-flipped"></div>
+      </div>
+    </main>
+    <footer><p>Coded by Dracode</p></footer>
     <script type="text/javascript" src="app.js"></script>
-</body>
+  </body>
 </html>
