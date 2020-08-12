@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>SlapJack</title>
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -23,13 +24,15 @@
         <div class="cards card-flipped"></div>
       </div>
       <div id="play-again-wrapper">
-        <div id="win-lose-status">
-          <div id="play-again-control"></div>
-            <button onclick="location.reload()">Play Again</button>
+        <div id="win-lose-status"></div>
+        <div id="play-again-control">
+          <button id="button" onclick="location.reload()">Play Again</button>
         </div>
       </div>
     </main>
-    <footer><p>Coded by Dracode</p></footer>
+    <footer>
+      <a href="https://github.com/Aru1Saravanan"><i class='bx bxl-github bx-tada'></i></a>
+      <p>Coded by Dracode</p></footer>
     <script type="text/javascript" src="app.js"></script>
   </body>
 </html>

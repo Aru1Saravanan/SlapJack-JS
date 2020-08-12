@@ -1,145 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Antic+Slab&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Antic+Slab&display=swap");
 
-body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: rgba(212,233,132,0.68);
-    font-family: 'Antic Slab', sans-serif;
-    min-height: 100vh;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgba(212, 233, 132, 0.68);
+  font-family: "Antic Slab", sans-serif;
+  min-height: 100vh;
 }
 
-header h1{
-    text-align: center;
-    font-size: 7vh;
-    margin: 0;
+header h1 {
+  text-align: center;
+  font-size: 7vh;
+  margin: 0;
 }
-footer p{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5vh;
-    margin-top: auto;
-}
-
-#player{
-    text-align: center;
-    font-size: 6vh;
-    margin: 0.2em;
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5vh;
+  font-weight: bold;
+  margin-top: auto;
 }
 
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+footer i{
+  color: #000;
+  margin-right: 0.5vh;
+  font-size: 3vh;
 }
 
-.cards{
-    width: 15vh;
-    height: 20vh;
-    background-color: #fff;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-bottom: 3vh;
-    box-shadow: 0 0 5px 2px #969191;
+#player {
+  text-align: center;
+  font-size: 6vh;
+  margin: 0.2em;
 }
 
-.number{
-    display: flex;
-    position: absolute;
-    font-size: 2.5vh;
-    font-weight: bold;
-    top: 0.4vh;
-    left: 0.4vh;
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.artwork{
-    font-size: 3vh;
-    display: flex;
-    flex-flow: row wrap;
+.cards {
+  width: 15vh;
+  height: 20vh;
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 3vh;
+  box-shadow: 0 0 5px 2px #969191;
 }
 
-.artwork > *{
-    flex: 50%;
-    text-align: center;
+.number {
+  display: flex;
+  position: absolute;
+  font-size: 2vh;
+  font-weight: bold;
+  top: 0.4vh;
+  left: 0.4vh;
 }
 
-.inverse{
-    position: absolute;
-    bottom: 0.4vh;
-    right: 0.4vh;
-    transform: rotate(180deg);
+.artwork {
+  font-size: 3vh;
+  display: flex;
+  flex-flow: row wrap;
 }
 
-.card-flipped{
-    background: url("https://i.pinimg.com/originals/c9/e5/61/c9e561d61fc50771ece1255125f7fb1a.jpg") no-repeat center center;
-    background-size: cover;
+.artwork > * {
+  flex: 50%;
+  text-align: center;
 }
 
-#opponent-deck > *{
-    margin-right: 35vw;
-    pointer-events: none;
+.inverse {
+  position: absolute;
+  bottom: 0.4vh;
+  right: 0.4vh;
+  transform: rotate(180deg);
 }
 
-#player-deck > *{
-    margin-left: 35vw;
-    pointer-events: none;
-    cursor: pointer;
+.card-flipped {
+  background: url("https://i.pinimg.com/originals/c9/e5/61/c9e561d61fc50771ece1255125f7fb1a.jpg")
+    no-repeat center center;
+  background-size: cover;
 }
 
-#discarded-pile > *{
-    pointer-events: none;
+#opponent-deck > * {
+  margin-right: 35vw;
+  pointer-events: none;
 }
 
-#discarded-pile{
-    margin: 1vh 0;
-    visibility: hidden;
+#player-deck > * {
+  margin-left: 35vw;
+  pointer-events: none;
+  cursor: pointer;
 }
 
-.red{
-    color: #ff0000;
+#discarded-pile > * {
+  pointer-events: none;
 }
 
-#play-again-wrapper{
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    flex-flow: column;
-    justify-content: center;
+#discarded-pile {
+  margin: 1vh 0;
+  visibility: hidden;
 }
 
-#play-again-control, #win-lose-status{
-    text-align: center;
-    padding: 5vh 0;
-    width: 100%;
-    background: #fff;
+.red {
+  color: #ff0000;
 }
 
-button{
-    border: none;
-    outline: none;
-    padding: 2vh 4vh;
-    border-radius: 7px;
-    font-family: inherit;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background-color: #971317;
-    color: #fff;
-    box-shadow: 0 2px 10px 5px #969191;
-    cursor: pointer;
-    transition: 0.5s ease;
+#play-again-wrapper {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  flex-flow: column;
+  justify-content: center;
 }
 
-button:hover, button:active {
-    background-color: #fff;
-    color: #971317;
+#play-again-control,
+#win-lose-status {
+  text-align: center;
+  padding: 5vh 0;
+  width: 100%;
+  background: #fff;
+}
+
+#play-again-wrapper button {
+  border: none;
+  outline: none;
+  padding: 2vh 4vh;
+  border-radius: 7px;
+  font-family: inherit;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-color: #971317;
+  color: #fff;
+  box-shadow: 0 2px 10px 5px #969191;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+button:hover,
+button:active {
+  background-color: #fff;
+  color: #971317;
 }
